@@ -53,7 +53,7 @@ public class FileManager {
         try {
             if (fileName != null) {
                 File file = new File(fileName);
-                if (!file.canRead())
+                if (!file.canRead() || !file.canWrite())
                     throw new IOException();
                 InputStreamReader reader = new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8);
                 StringBuilder jsonHolder = new StringBuilder();

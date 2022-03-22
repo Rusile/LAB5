@@ -3,6 +3,7 @@ package com.util;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.people.Person;
+import com.validator.Validators;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -69,6 +70,8 @@ public class FileManager {
                 ArrayDeque<Person> convertedCollection = converter.fromJson(jsonHolder.toString(), listType);
                 if (convertedCollection == null)
                     convertedCollection = new ArrayDeque<>();
+                else
+                    Validators.validateClass(convertedCollection);
 
                 return convertedCollection;
             }

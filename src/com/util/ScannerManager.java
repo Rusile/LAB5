@@ -17,7 +17,7 @@ public class ScannerManager {
     private final int MIN_HEIGHT = 0;
     private final int MAX_HEIGHT = 300;
     private Pattern patternNumber = Pattern.compile("-?\\d+(\\.\\d+)?");
-    private Pattern patternSymbols = Pattern.compile("[a-zA-Z]+");
+    private Pattern patternSymbols = Pattern.compile("^[A-Z][a-z]*(\\\\s(([a-z]{1,3})|(([a-z]+\\\\')?[A-Z][a-z]*)))*$");
 
     private Scanner userScanner;
     private boolean fileMode;
@@ -82,7 +82,7 @@ public class ScannerManager {
                 if (!patternSymbols.matcher(name).matches()) throw new WrongNameException();
                 break;
             } catch (WrongNameException exception) {
-                ConsoleManager.printErr(String.format("%s не может быть числом!", typeOfName));
+                ConsoleManager.printErr(String.format("%s должно быть представлено в символьном формате с заглавной буквы!", typeOfName));
             } catch (NoSuchElementException exception) {
                 ConsoleManager.printErr(String.format("%s не распознано!", typeOfName));
                 System.exit(0);

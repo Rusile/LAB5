@@ -1,5 +1,9 @@
 package com.people;
 
+import com.sun.xml.internal.ws.developer.MemberSubmissionAddressing;
+import com.sun.xml.internal.ws.dump.MessageDumping;
+
+import javax.validation.constraints.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -7,13 +11,23 @@ import java.util.Objects;
  * Person's data class
  */
 public class Person implements Comparable<Person> {
+    @NotNull
+    @Positive(message = "ID должен быть больше нуля!")
     private Long id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    @NotBlank(message = "Имя должно содержать хотя бы 1 символ")
+    @Pattern(regexp = "^[A-Z][a-z]*(\\\\s(([a-z]{1,3})|(([a-z]+\\\\')?[A-Z][a-z]*)))*$", message = "Имя должно начинаться с заглавной буквы и представлено в символьном формате!")
     private String name; //Поле не может быть null, Строка не может быть пустой
+    @NotNull(message = "Координаты не могут быть null")
     private Coordinates coordinates; //Поле не может быть null
+    @NotNull(message = "Дата не может быть null")
+    @PastOrPresent
     private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    @NotNull(message = "Рост не может быть null")
+    @Positive(message = "Рост должен быть больше нуля")
     private int height; //Значение поля должно быть больше 0
     private Color eyeColor; //Поле может быть null
     private Color hairColor; //Поле может быть null
+    @NotNull(message = "Национальность не может быть null")
     private Country nationality; //Поле не может быть null
     private Location location; //Поле может быть null
 
@@ -136,7 +150,7 @@ public class Person implements Comparable<Person> {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", name=" + name + '\'' +
                 ", coordinates=" + coordinates +
                 ", creationDate=" + creationDate +
                 ", height=" + height +
